@@ -1,0 +1,22 @@
+{
+  "name": "back-end-arcadestore",
+  "version": "1.0.0",
+  "description": "apiRestFull api tienda de video juegos ARCADESTORE",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "author": "Kevin Eduardo Sanchez Velasquez",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "joi": "^18.0.1",
+    "mongodb": "^6.20.0",
+    "mongoose": "^8.19.1",
+    "nodemon": "^3.1.10"
+  }
+}
