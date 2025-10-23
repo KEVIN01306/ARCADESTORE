@@ -6,14 +6,26 @@ const userSchema = new mongoose.Schema(
             type: String,
             require: true
         },
-        dateBirthday: {
-            type: Date
-        },
         email: {
             type: String,
             require: true,
             unique: true
-        }
+        },
+        password:{
+            type: String,
+            require: true
+        },
+        rol:{
+            type: String,
+            require: true
+        },
+        games:{
+            type: Array,
+            require: false
+        },
+        dateBirthday: {
+            type: Date
+        },
     }
 )
 
