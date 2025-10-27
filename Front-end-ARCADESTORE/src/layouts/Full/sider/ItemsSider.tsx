@@ -5,18 +5,13 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
-import { useNavigate } from "react-router-dom";
 import MenuItems from "./MenuItems";
 import { Typography } from "@mui/material";
+import { useGoTo } from "../../../hooks/useGoTo";
 
 
 const ItemsSider = () => {
-
-        const navigate = useNavigate()
-
-        const navigateHandler = (path: string) => {
-            navigate(path,{ replace: true })
-        }
+    const goTo = useGoTo()
 
 return (
     <Box>
@@ -29,7 +24,7 @@ return (
       <List>
         {MenuItems.map((item) => (
           <ListItem key={item.name} disablePadding>
-            <ListItemButton sx={{'&:hover':{ backgroundColor: 'transparent' }}} onClick={() => navigateHandler(item.link)}>
+            <ListItemButton sx={{'&:hover':{ backgroundColor: 'transparent' }}} onClick={() => goTo(item.link)}>
               <ListItemIcon sx={{ 
                 color: '#596d80',
                 minWidth: 35 

@@ -10,7 +10,7 @@ export const gamesRoutes: RouteObject[] = [
         path: "games",
         children: [
             { index: true, element: <GameList /> },
-            { path: 'detail', element: <GameDetail /> },
+            { path: ':id', element: <GameDetail /> },
         ]
     }
 ]

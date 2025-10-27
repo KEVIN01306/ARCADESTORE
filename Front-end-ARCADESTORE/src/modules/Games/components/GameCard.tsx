@@ -2,13 +2,14 @@ import { Card, CardMedia, Typography, Box } from "@mui/material";
 import { useState } from "react";
 import StatusChip from "../../../components/utils/StatusChip";
 import type { GameType } from "../../../types/gameType";
+import { useGoTo } from "../../../hooks/useGoTo";
 
 interface CardGameView{
     game: GameType;
 }
 
 export default function GameCard( { game } : CardGameView) {
-
+  const goTo = useGoTo()
   const { name, type, price, background, context } = game;
 
   const [hover, setHover] = useState(false);
@@ -42,6 +43,7 @@ export default function GameCard( { game } : CardGameView) {
           }}
         />
         <Box
+          onClick={() => goTo(game._id)}
           sx={{
             position: "absolute",
             top: 0,
@@ -67,7 +69,7 @@ export default function GameCard( { game } : CardGameView) {
       </Box>
 
       <Box sx={{ p: 2 }}>
-        <Typography variant="h5" sx={{ fontWeight: 600 }}>
+        <Typography variant="h5" sx={{ fontWeight: 600 }} color='#596d80'>
           {name}
         </Typography>
         <Typography variant="body2" sx={{ color: "text.secondary" }}>

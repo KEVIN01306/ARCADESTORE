@@ -5,6 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Search from "../../../components/utils/Search";
+import ShoppingCard from "../../../components/ShoppingCar/ShoppingCart";
 
 interface HeaderProps {
     drawerWidth: number,
@@ -51,7 +52,8 @@ const Header = ({ drawerWidth, handleDrawerToggle }: HeaderProps) => {
                 <Toolbar>
                     <Search/>
                 </Toolbar>
-                <Toolbar>
+                <Toolbar sx={{ display: "flex", gap: 5, justifyContent: "flex-start", alignItems: "center" }}>
+                    <ShoppingCard/>
                     <Avatar variant="rounded" sx={{backgroundColor: "#6060f3"}}>K</Avatar>
                 </Toolbar>
             </AppBar>
