@@ -63,6 +63,8 @@ const postGameHandler = async (req,res) => {
                 errorMessage = error.code;
                 break;
         }
+
+        return res.status(errorCode).json(responseError(errorMessage));
     }
    
 }
