@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
-import { getGames } from "../../services/games.services"
-import CardGameView from "./components/CardGameView"
+import { getGames } from "../../../services/games.services"
+import { GameCard } from "../components/index"
 import { Box, Grid } from "@mui/material"
-import type { GameType } from "../../types/gameType"
-import Loading from "../../components/utils/Loading"
-import ErrorCard from "../../components/utils/ErrorCard"
+import type { GameType } from "../../../types/gameType"
+import Loading from "../../../components/utils/Loading"
+import ErrorCard from "../../../components/utils/ErrorCard"
 
 
-const Games = () => {
+const GamesList = () => {
 
     const [games,setGames] = useState<GameType[]>([])
     const [loading, setLoading] = useState<boolean>(true)
@@ -41,7 +41,7 @@ const Games = () => {
                 games.map((game,index) => {
                     return( 
                             <Grid sx={{ p: 2 }}  size={{ xs: 12, md: 4 }} key={index}>
-                                <CardGameView game={game}/>
+                                <GameCard game={game}/>
                             </Grid>
                         )
                 })
@@ -52,4 +52,4 @@ const Games = () => {
     )
 }
 
-export default Games;
+export default GamesList;

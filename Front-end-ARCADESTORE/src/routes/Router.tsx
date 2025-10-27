@@ -2,9 +2,9 @@ import { lazy } from "react";
 import FullLayout from "../layouts/Full/FullLayout";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import BlankLayout from "../layouts/Blanck/BlankLayout";
+import { gamesRoutes } from "../modules/Games/routes";
 
-const Home = lazy(() => import('../pages/Home'));
-const Games = lazy(() => import('../pages/Games/Games'));
+const Home = lazy(() => import('../modules/Home'));
 
 
 const Router = [
@@ -15,7 +15,9 @@ const Router = [
         ),
         children: [
             { path: '/',  element: <Home /> },
-            { path: 'games',  element: <Games/>},
+
+            ...gamesRoutes,
+            
             { path: 'users',  element: <h2>este el users</h2>},
             { path: 'profile',  element: <h2>este el perfil</h2>},
             { path: '*',  element: <h1>Pagina no encontrada</h1> }

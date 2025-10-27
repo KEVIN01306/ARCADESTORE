@@ -7,7 +7,7 @@ interface CardGameView{
     game: GameType;
 }
 
-export default function CardGameView( { game } : CardGameView) {
+export default function GameCard( { game } : CardGameView) {
 
   const { name, type, price, background, context } = game;
 
