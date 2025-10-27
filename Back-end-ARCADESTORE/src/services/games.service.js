@@ -31,15 +31,15 @@ const getGame = async (id) => {
 
 const postGame = async (data) => {
 
-	const game = await Game.create({name: data.name})
+	const game = await Game.findOne({ name: data.name })
 
 	if (game){
-		const error = new Error('AUTH_ERROR');
-		error.code = 'AUTH_ERROR';
+		const error = new Error('CONFLICT');
+		error.code = 'CONFLICT';
 		throw error;
 	}
 
-	const newGame = await Game.insertOne(data);
+	const newGame = await Game.create(data);
 	console.log(newGame.name)
 
 	return newGame.name

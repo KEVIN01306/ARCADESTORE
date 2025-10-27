@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Header from './header/Header';
 import Toolbar from '@mui/material/Toolbar';
 import { useState } from 'react';
+import Footer from './sider/Footer';
 
 const drawerWidth = 240
 
@@ -28,7 +29,7 @@ const FullLayout = () => {
     };
     return (
         <>
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', bgcolor: "rgb(251, 251, 252)",minHeight: "100vh" }}>
                 <CssBaseline />
                 <Header drawerWidth={drawerWidth} handleDrawerToggle={handleDrawerToggle} />
                 <Box
@@ -49,6 +50,7 @@ const FullLayout = () => {
                 >
                     <Toolbar />
                     <Outlet />
+                    <Footer/>
                 </Box>
             </Box>
         </>

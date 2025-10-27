@@ -4,7 +4,7 @@ import Toolbar from "@mui/material/Toolbar"
 import MenuIcon from '@mui/icons-material/Menu';
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
+import Search from "../../../components/utils/Search";
 
 interface HeaderProps {
     drawerWidth: number,
@@ -26,9 +26,9 @@ const Header = ({ drawerWidth, handleDrawerToggle }: HeaderProps) => {
                     boxShadow: "none",
                     backgroundColor: 'transparent',
                     color: 'primary.main',
-                    backdropFilter: 'blur(10px)',
+                    backdropFilter: 'blur(5px)',
                     WebkitBackdropFilter: 'blur(10px)',
-                    mt: 1,
+                    mt: 0,
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between"
@@ -49,10 +49,12 @@ const Header = ({ drawerWidth, handleDrawerToggle }: HeaderProps) => {
                     </Typography>
                 </Toolbar>
                 <Toolbar>
-                    <Avatar variant="square" sx={{backgroundColor: "#6060f3"}}>K</Avatar>
+                    <Search/>
+                </Toolbar>
+                <Toolbar>
+                    <Avatar variant="rounded" sx={{backgroundColor: "#6060f3"}}>K</Avatar>
                 </Toolbar>
             </AppBar>
-            <Divider/>
         </>
     )
 }

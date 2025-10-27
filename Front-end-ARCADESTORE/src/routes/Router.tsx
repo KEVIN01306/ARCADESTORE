@@ -4,7 +4,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import BlankLayout from "../layouts/Blanck/BlankLayout";
 
 const Home = lazy(() => import('../pages/Home'));
-const Games = lazy(() => import('../pages/Games'));
+const Games = lazy(() => import('../pages/Games/Games'));
 
 
 const Router = [

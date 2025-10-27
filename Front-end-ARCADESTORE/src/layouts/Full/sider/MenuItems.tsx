@@ -1,16 +1,16 @@
 
-import { FaUser, FaGamepad } from 'react-icons/fa';
+import { PiGameControllerFill, PiUserCheckDuotone } from "react-icons/pi";
 
 const MenuItems = [
     {
         name: "Games",
         link: "/games",
-        icon: FaGamepad,
+        icon: PiGameControllerFill,
     },
     {
         name: "Users",
         link: "/users",
-        icon: FaUser,
+        icon: PiUserCheckDuotone,
     }
 ]
 

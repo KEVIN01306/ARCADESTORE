@@ -46,16 +46,23 @@ const postGameHandler = async (req,res) => {
     try{
         const data = req.body
 
-        const { error, valueData } = schemaGame.validate(data, { abortEarly: false }) 
+        const { error, value } = schemaGame.validate(data, { abortEarly: false }) 
 
     if ( error && error.details ){ 
             return res.status(400).json(responseError(error.details.map(e => e.message)))
         }
-        const gameName = await postGame(valueData)
+        const gameName = await postGame(value)
 
         res.status(201).json(responseSucces("games successfully created  ",gameName))
     }catch (error){
-        console.log(error)
+        let errorCode = 500;
+        let errorMessage = 'INTERNAL_SERVER_ERROR'
+        switch(error.code){
+            case 'CONFLICT':
+                errorCode = 400;
+                errorMessage = error.code;
+                break;
+        }
     }
    
 }

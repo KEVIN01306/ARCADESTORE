@@ -8,7 +8,8 @@ interface SiderProps {
     mobileOpen: boolean
 }
 
-const drawerWidth = 240;
+const drawerWidth = 200;
+const drawerWidthMobil = 240;
 
 const Sider = ( {handleDrawerClose, handleDrawerTransitionEnd,mobileOpen, window }:SiderProps) => {
 
@@ -22,14 +23,12 @@ const Sider = ( {handleDrawerClose, handleDrawerTransitionEnd,mobileOpen, window
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                                borderRadius: 4,
+            display: { xs: 'block', sm: 'none'},
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidthMobil,bgcolor: "rgb(251, 251, 252)" },
+                    borderRadius: 4,
                     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.3)',
                     color: 'primary.main',
-                    backdropFilter: 'blur(10px)',
-                    WebkitBackdropFilter: 'blur(10px)',
             
           }}
           slotProps={{
@@ -45,8 +44,8 @@ const Sider = ( {handleDrawerClose, handleDrawerTransitionEnd,mobileOpen, window
           variant="permanent"
           sx={{
             display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-            
+            '& .MuiDrawer-paper': { boxSizing: 'border-box',border: 'none', width: drawerWidth,bgcolor: "rgb(251, 251, 252)" },
+
           }}
           open
         >

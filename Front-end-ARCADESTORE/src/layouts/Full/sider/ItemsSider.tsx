@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -8,6 +7,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import { useNavigate } from "react-router-dom";
 import MenuItems from "./MenuItems";
+import { Typography } from "@mui/material";
 
 
 const ItemsSider = () => {
@@ -20,18 +20,23 @@ const ItemsSider = () => {
 
 return (
     <Box>
-      <Toolbar className="aspect-3/1 p-1.5" >
-            <img className="rounded-2xl shadow-2xs shadow-blue-300 border-2 border-blue-400" style={{width: "100%", height: "100%"}} src="banner.png" alt="" />
+      <Toolbar className="aspect-3/1 p-1.5 flex justify-center items-center" >
+            <Typography variant="h5" sx={{ 
+              color: '#596d80',
+              fontWeight: 'bold'
+             }}>ARCADESTORE</Typography>
       </Toolbar>
-      <Divider />
       <List>
         {MenuItems.map((item) => (
-          <ListItem key={item.name} className=" hover:bg-sky-200 active:bg-red-200 transition-all" disablePadding>
-            <ListItemButton onClick={() => navigateHandler(item.link)}>
-              <ListItemIcon>
-                {<item.icon size={20} />}
+          <ListItem key={item.name} disablePadding>
+            <ListItemButton sx={{'&:hover':{ backgroundColor: 'transparent' }}} onClick={() => navigateHandler(item.link)}>
+              <ListItemIcon sx={{ 
+                color: '#596d80',
+                minWidth: 35 
+                }}>
+                {<item.icon size={23} />}
               </ListItemIcon>
-              <ListItemText style={{overflowWrap: "anywhere"}}  primary={item.name} />
+              <ListItemText style={{overflowWrap: "anywhere", color: '#596d80',}}  primary={item.name} />
             </ListItemButton>
           </ListItem>
         ))}

@@ -18,6 +18,10 @@ const gameSchema = mongoose.Schema(
         background: {
             type: String,
             require: true
+        },
+        context: {
+            type: String,
+            require: true
         }
     }
 )
