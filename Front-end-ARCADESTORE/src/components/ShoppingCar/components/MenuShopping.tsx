@@ -3,9 +3,13 @@ import {
     MenuItem,
     Typography,
     Divider,
+    Stack,
+    IconButton,
 } from '@mui/material';
 import type { GameType } from '../../../types/gameType';
 import MenuItemShopping from './MenuItem';
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
+
 
 interface MenuShoppingProps {
     anchorEl: null | HTMLElement,
@@ -31,21 +35,27 @@ const MenuShopping = ({ anchorEl, open, handleClose, games }: MenuShoppingProps 
                     paper: {
                         style: {
                             minWidth: 350,
+                            boxShadow: "0px 0px 5px rgb(0,0,0,0.1)",
+                            borderRadius: 3
                         },
                     },
                 }}
             >
 
-                <MenuItem onClick={handleClose} disabled>
-                    <Typography variant="h6">
+                <MenuItem onClick={handleClose} sx={{ display: "flex",justifyContent: "space-between"}}>
+                    <Typography variant="body1" color=''>
                         Mi Carrito ({games.length} ítems)
                     </Typography>
+                    <IconButton>
+                        <RemoveShoppingCartIcon color={games.length ? 'error' : 'disabled'}/>
+                    </IconButton>
                 </MenuItem>
                 <Divider />
-
-                {games.map((game) => (
-                    <MenuItemShopping game={game} handleClose={handleClose}/>
+                <Stack flexGrow={1} maxHeight={200} overflow={"auto"} >
+                     {games.map((game,index) => (
+                    <MenuItemShopping game={game} handleClose={handleClose} key={index}/>
                 ))}
+                </Stack>
 
                 <Divider />
                 
@@ -53,12 +63,12 @@ const MenuShopping = ({ anchorEl, open, handleClose, games }: MenuShoppingProps 
                     <Typography variant="subtitle1" fontWeight="bold">
                         Total:
                     </Typography>
-                    <Typography variant="h6" color="error">
+                    <Typography variant="h6" color="textPrimary">
                         ${cartTotal.toFixed(2)}
                     </Typography>
                 </MenuItem>
                 
-                <MenuItem onClick={handleClose} sx={{ justifyContent: 'center' }}>
+                <MenuItem /*onClick={handleClose}*/ sx={{ justifyContent: 'center' }}>
                     <Typography color="secondary" fontWeight="bold">
                         Proceder al Pago
                     </Typography>

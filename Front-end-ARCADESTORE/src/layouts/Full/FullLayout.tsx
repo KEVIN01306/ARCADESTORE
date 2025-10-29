@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router';
+import { Outlet } from 'react-router-dom';
 import Sider from './sider/Sider';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -27,6 +27,7 @@ const FullLayout = () => {
             setMobileOpen(!mobileOpen);
         }
     };
+    
     return (
         <>
             <Box sx={{ display: 'flex', bgcolor: "rgb(251, 251, 252)",minHeight: "100vh" }}>

@@ -59,7 +59,7 @@ const GameCartMenu: React.FC = () => {
                 onClick={handleClick}
                 color="inherit" 
             >
-                <ShoppingCartIcon /> 
+                <ShoppingCartIcon color={games.length ? 'primary' : 'disabled'}/> 
                 <CartBadge badgeContent={games.length} color="primary" overlap="circular" />
             </IconButton>
 
