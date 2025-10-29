@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     IconButton,
     Box,
@@ -6,8 +6,8 @@ import {
 } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'; 
 import Badge, { badgeClasses } from '@mui/material/Badge';
-import { getGames } from '../../services/games.services';
 import MenuShopping from './components/MenuShopping';
+import { useShoppingCart } from '../../store/useShoppingCart';
 
 export type GameType = {
     _id: string;
@@ -21,18 +21,8 @@ export type GameType = {
 const GameCartMenu: React.FC = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-    const [games,setGames] = useState<GameType[]>([])
+    const shoppingCart = useShoppingCart((state) => state.shoppingCardtList)
 
-    useEffect(() => {
-        const getGamesList = async () =>{
-                const response = await getGames();
-
-                setGames(response)
-
-        }
-
-        getGamesList()
-    },[])
     
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -59,11 +49,11 @@ const GameCartMenu: React.FC = () => {
                 onClick={handleClick}
                 color="inherit" 
             >
-                <ShoppingCartIcon color={games.length ? 'primary' : 'disabled'}/> 
-                <CartBadge badgeContent={games.length} color="primary" overlap="circular" />
+                <ShoppingCartIcon color={shoppingCart.length ? 'primary' : 'disabled'}/> 
+                <CartBadge badgeContent={shoppingCart.length} color="primary" overlap="circular" />
             </IconButton>
 
-            <MenuShopping anchorEl={anchorEl} open={open} handleClose={handleClose} games={games}/>
+            <MenuShopping anchorEl={anchorEl} open={open} handleClose={handleClose} games={shoppingCart}/>
         </Box>
     );
 };

@@ -11,7 +11,6 @@ interface CardGameView{
 export default function GameCard( { game } : CardGameView) {
   const goTo = useGoTo()
   const { name, type, price, background, context } = game;
-
   const [hover, setHover] = useState(false);
   const [purchased] = useState(false);
 

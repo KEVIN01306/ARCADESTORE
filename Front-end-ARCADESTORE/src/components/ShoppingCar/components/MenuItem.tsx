@@ -7,6 +7,7 @@ import {
 import type { GameType } from '../../../types/gameType';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useGoTo } from '../../../hooks/useGoTo';
+import { useShoppingCart } from '../../../store/useShoppingCart';
 
 interface MenuItemProps {
     game: GameType
@@ -15,6 +16,8 @@ interface MenuItemProps {
 
 const MenuItemShopping = ({ game, handleClose }: MenuItemProps) => {
     const goTo = useGoTo()
+    const saveShoppingCart = useShoppingCart((state) => state.deleteShoppingCart)
+    
     
     return (
         <>
@@ -34,7 +37,7 @@ const MenuItemShopping = ({ game, handleClose }: MenuItemProps) => {
                     }}
                 >
                     <Box display={'flex'} justifyContent={"start"} gap={2} >
-                        <Box sx={{ flexGrow: 1 }} onClick={() => console.log(game.name)} >
+                        <Box sx={{ flexGrow: 1 }} onClick={() => saveShoppingCart(game._id)} >
                             <DeleteOutlineIcon color={"error"} />
                         </Box>
                         <Avatar

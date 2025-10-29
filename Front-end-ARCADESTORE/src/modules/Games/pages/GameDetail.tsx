@@ -9,8 +9,7 @@ import { AddShoppingCart, DeleteForeverOutlined, Edit, Whatshot } from "@mui/ico
 import ModalConfirm from "../../../components/utils/modals/ModalConfirm";
 import BreadcrumbsRoutes from "../../../components/utils/Breadcrumbs";
 import { PiGameController } from "react-icons/pi";
-
-
+import { useShoppingCart } from "../../../store/useShoppingCart";
 
 const GameDetail = () => {
     const { id } = useParams<GameType["_id"]>();
@@ -22,10 +21,11 @@ const GameDetail = () => {
         { label: "Games", icon: <PiGameController fontSize="inherit" />, href: "/games" },
         { label: game?.name ? game?.name : "" , icon: <Whatshot fontSize="inherit" />, href: `/${id}` },
     ];
+    const saveShoppingCart = useShoppingCart((state) => state.saveShoppingCart)
 
-    useEffect(() => {
-        const getGameOne = async () => {
+    const getGameOne = async () => {
             try {
+                setLoading(true)
                 const response = await getGame(id);
                 setGame(response);
             } catch (err: any) {
@@ -33,14 +33,17 @@ const GameDetail = () => {
             } finally {
                 setLoading(false)
             }
-        };
+    };
+
+    useEffect(() => {
 
         getGameOne();
+
     }, []);
 
     if (loading) return <Loading />
 
-    if (error) return <ErrorCard errorText={error} />;
+    if (error) return <ErrorCard errorText={error} restart={getGameOne}/>;
 
     const handleClickOpenDelete = () => {
         setOpenConfirmModal(true);
@@ -114,9 +117,13 @@ const GameDetail = () => {
                                 <DeleteForeverOutlined />
                             </IconButton>
                         </Box>
-                        <IconButton color="primary" aria-label="add to shopping cart">
-                            <AddShoppingCart />
-                        </IconButton>
+                        {
+                            game?.type == "Pay" ?   <IconButton color="primary" aria-label="add to shopping cart" onClick={() => saveShoppingCart(game)}>
+                                                        <AddShoppingCart />
+                                                    </IconButton>
+                                                :
+                                                ""
+                        }
                     </Box>
                 </Stack>
             </Stack>

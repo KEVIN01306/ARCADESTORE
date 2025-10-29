@@ -7,10 +7,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 interface ErrorCardProps{
-    errorText: string | null
+    errorText: string | null,
+    restart: () => void
 }
 
-const  ErrorCard = ( { errorText }: ErrorCardProps) => {
+const  ErrorCard = ( { errorText,restart }: ErrorCardProps) => {
   return (
      <Box sx={{
                 flexGrow: 1,
@@ -35,7 +36,7 @@ const  ErrorCard = ( { errorText }: ErrorCardProps) => {
             </Typography>
         </CardContent>
         <CardActions>
-            <Button size="small">ReStar</Button>
+            <Button size="small" onClick={restart}>ReStar</Button>
         </CardActions>
         </Card>
     </Box>
