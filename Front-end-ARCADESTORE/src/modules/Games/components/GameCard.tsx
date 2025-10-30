@@ -42,7 +42,7 @@ export default function GameCard( { game } : CardGameView) {
           }}
         />
         <Box
-          onClick={() => goTo(game._id)}
+          onClick={() => goTo(game._id ? game._id : "/")}
           sx={{
             position: "absolute",
             top: 0,

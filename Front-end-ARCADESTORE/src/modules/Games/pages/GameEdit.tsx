@@ -1,22 +1,30 @@
-import { Button, Divider, Grid } from "@mui/material";
-import { useForm } from 'react-hook-form'
-import { GameInitialState, type GameType } from "../../../types/gameType";
+import { Button, Divider, Grid} from "@mui/material";
+import {  useForm } from 'react-hook-form'
+import { type GameType } from "../../../types/gameType";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { gameSchema } from "../../../zod/game.schema";
-import { postGame } from "../../../services/games.services";
+import { getGame, putGame } from "../../../services/games.services";
 import { InputsForm } from "../components/index";
 import { successToast, errorToast } from "../../../utils/Toast";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import BreadcrumbsRoutes from "../../../components/utils/Breadcrumbs";
-import { Create } from "@mui/icons-material";
+import { Create, Whatshot } from "@mui/icons-material";
 import { PiGameController } from "react-icons/pi";
-import FormEstructure from "../components/FormEstructure";
+import Loading from "../../../components/utils/Loading";
+import ErrorCard from "../../../components/utils/ErrorCard";
+import { useParams } from "react-router-dom";
+import FormEstructure from "../../../components/utils/FormEstructure";
 
-const GameCreate = () => {
+const GameEdit = () => {
+    const { id } = useParams()
+    const [game, setGame] = useState<GameType>();
     const breadcrumbsData = [
         { label: "Games", icon: <PiGameController fontSize="inherit" />, href: "/games" },
-        { label: "Create Game", icon: <Create fontSize="inherit" />, href: "/games/create" },
+        { label: game?.name ? game?.name : "", icon: <Whatshot fontSize="inherit" />, href: `/games/${id}` },
+        { label: game?.name ? `Edit ${game?.name}` : "Edit Game", icon: <Create fontSize="inherit" />, href: "edit" },
     ];
+    const [loading, setLoading] = useState<boolean>(true)
+    const [error, setError] = useState<string | null>(null)
     const {
         register,
         handleSubmit,
@@ -29,14 +37,14 @@ const GameCreate = () => {
         useForm<GameType>({
             resolver: zodResolver(gameSchema),
             mode: "onSubmit",
-            defaultValues: GameInitialState
         })
 
     const handlerSubmitGame = async (data: GameType) => {
         try {
-            const response = await postGame(data)
-            successToast("Game create: " + response)
-            reset()
+            const response = await putGame(id ? id : "",data)
+            successToast("Game Update: " + response)
+            getGameOne()
+            reset(game)
         }
         catch (err: any) {
             console.log(err)
@@ -45,14 +53,27 @@ const GameCreate = () => {
 
     }
 
-
-    const typeValue = watch("type");
+    const getGameOne = async () => {
+        try {
+            setLoading(true)
+            const response = await getGame(id);
+            setGame(response);
+            reset(response);
+        } catch (err: any) {
+            setError(err.message)
+        } finally {
+            setLoading(false)
+        }
+    }
 
     useEffect(() => {
-        if (typeValue === "Free") {
-            setValue("price", 0);
-        }
-    }, [typeValue, setValue]);
+        getGameOne()
+    }, [])
+
+
+    if (loading) return <Loading />
+
+    if (error) return <ErrorCard errorText={error} restart={getGameOne} />;
 
     return (
         <>
@@ -78,4 +99,4 @@ const GameCreate = () => {
     )
 }
 
-export default GameCreate;
+export default GameEdit;

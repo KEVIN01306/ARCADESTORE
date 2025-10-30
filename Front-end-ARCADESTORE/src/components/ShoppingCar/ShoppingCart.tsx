@@ -9,15 +9,6 @@ import Badge, { badgeClasses } from '@mui/material/Badge';
 import MenuShopping from './components/MenuShopping';
 import { useShoppingCart } from '../../store/useShoppingCart';
 
-export type GameType = {
-    _id: string;
-    name: string;
-    type: string;
-    price: number;
-    background: string;
-    context: string;
-};
-
 const GameCartMenu: React.FC = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);

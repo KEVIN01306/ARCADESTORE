@@ -11,7 +11,7 @@ type ShoppingCartStore = {
 
 export const useShoppingCart = create<ShoppingCartStore>()(
     persist(
-        (set, get) => ({
+        (set/*,get*/) => ({
             shoppingCardtList: [],
 
             saveShoppingCart: (game) => set((state) => {

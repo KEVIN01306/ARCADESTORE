@@ -1,10 +1,6 @@
-import { Autocomplete, Button, Fab, Grid, TextField } from "@mui/material"
+import { Autocomplete, Fab, Grid, TextField } from "@mui/material"
 import AddIcon from '@mui/icons-material/Add';
 import { useGoTo } from "../../../hooks/useGoTo"
-
-interface AutocompleteOption {
-  label: string;
-}
 
 const opcionsType = [
     "All",
@@ -24,25 +20,25 @@ const HeaderGames = () => {
             <Grid flexGrow={1} container p={1} gap={2} justifyContent={{sm: "center",md: "flex-end"}}>
                 <Grid size={{xs: 5, md: 2}}  flexGrow={1} >
                     <Autocomplete
-                    disablePortal
+                    disableClearable
                     size="small"
                     options={opcionsType}
-                    renderInput={(params) => <TextField {...params} label="Type"
+                    renderInput={(params) => <TextField {...params} label="Type" variant="standard"
                     sx={{
                         borderRadius: 3
                     }} />}
-                />
+                />  
                 </Grid>
                 <Grid size={{xs: 5, md: 2}}  flexGrow={1}  alignItems={"center"}  justifyContent={"center"}>
                     <Autocomplete
-                        disablePortal
+                        disableClearable
                         size="small"
                         options={opcionsGames}
-                        renderInput={(params) => <TextField {...params} label="Games" />}
+                        renderInput={(params) => <TextField {...params} label="Games" variant="standard" />}
                     />
-                </Grid>
-                <Grid size={{xs: 10, md: 1}} display={"flex"} flexGrow={1} alignItems={"center"} justifyContent={"end"} onClink={() => goTo('/create')}>
-                    <Fab color="primary" aria-label="add">
+                </Grid> 
+                <Grid size={{xs: 10, md: 1}} display={"flex"} flexGrow={1} alignItems={"center"} justifyContent={"end"} >
+                    <Fab size="small" color="primary" aria-label="add" onClick={() => goTo('create')} >
                         <AddIcon />
                     </Fab>
                 </Grid>

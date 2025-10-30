@@ -47,7 +47,7 @@ const GamesList = () => {
                 {
                 games.map((game,index) => {
                     return( 
-                            <Grid sx={{ p: 2 }}  size={{ xs: 12, md: 4 }} key={index}>
+                            <Grid sx={{ p: 1}}  size={{ xs: 12, md: 4 }} key={index}>
                                 <GameCard game={game}/>
                             </Grid>
                         )

@@ -1,11 +1,15 @@
+import type { gameSchema } from "../zod/game.schema";
+import { z } from 'zod'
 
 
 
-export type GameType = {
-    _id: string,
-    name: string,
-    type: string,
-    price: number,
-    background: string,
-    context: string
+export type GameType = z.infer<typeof gameSchema>;
+
+
+export const GameInitialState = {
+    name: "",
+    type: "Free",
+    price: 0,
+    background: "",
+    context: "",
 }

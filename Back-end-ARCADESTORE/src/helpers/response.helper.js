@@ -19,7 +19,7 @@ export const responseSucces = (message, data) =>{
 
 export const responseError = (message) =>{
     return {
-        status: "success",
+        status: "error",
         message: message,
         data: null,
     }

@@ -50,7 +50,9 @@ const FullLayout = () => {
                     sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
                 >
                     <Toolbar />
-                    <Outlet />
+                    <Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"} flexDirection={'column'} alignContent={"center"}position={"relative"}>
+                        <Outlet />
+                    </Box>
                     <Footer/>
                 </Box>
             </Box>

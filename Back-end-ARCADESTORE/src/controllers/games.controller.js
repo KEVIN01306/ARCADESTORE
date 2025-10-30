@@ -1,4 +1,4 @@
-import { postGame, getGames, getGame } from "../services/games.service.js";
+import { postGame, getGames, getGame, putGame } from "../services/games.service.js";
 import { responseSuccesAll,responseSucces, responseError } from "../helpers/response.helper.js";
 import { schemaGame } from "../schemas/game.schema.js";
 
@@ -69,9 +69,41 @@ const postGameHandler = async (req,res) => {
    
 }
 
+const putGameHandler = async (req,res) => {
+    try{
+        const { id } = req.params
+        const data = req.body
+
+        const { error, value } = schemaGame.validate(data, { abortEarly: false }) 
+
+    if ( error && error.details ){ 
+            return res.status(400).json(responseError(error.details.map(e => e.message)))
+        }
+        const gameName = await putGame(id,value)
+
+        res.status(200).json(responseSucces("games successfully updated  ",gameName))
+    }catch (error){
+        let errorCode = 500;
+        let errorMessage = 'INTERNAL_SERVER_ERROR'
+        switch(error.code){
+            case 'NOT FOUND':
+                errorCode = 400;
+                errorMessage = error.code;
+                break;
+        }
+
+        console.log(error)
+
+        return res.status(errorCode).json(responseError(errorMessage));
+    }
+   
+}
+
+
 
 export {
     getGamesHandler,
     getGameHandler,
-    postGameHandler
+    postGameHandler,
+    putGameHandler
 }
