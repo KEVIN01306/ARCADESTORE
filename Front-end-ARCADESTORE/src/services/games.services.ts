@@ -161,9 +161,47 @@ const putGame = async(id: GameType['_id'] ,game: GameType)  => {
 }
 
 
+const deleteGame = async(id: GameType['_id'])  => {
+    try{
+
+    const response = await api.delete<apiResponse<GameType>>(API_GAMES+"/"+id)
+
+    return response.data.data?.name
+
+    }catch (error){
+        console.log(error)
+                if (api.isAxiosError(error)){
+            const status = error.response?.status;
+
+            if (status == 500){
+                throw new Error("INTERNAL ERROR SERVER")
+            }
+            const serverMessage = error.response?.data?.message;
+
+            if (status == 400 && serverMessage == "CONFLICT"){
+                throw new Error("AL READY EXIST THIS GAME")
+            }
+
+            if (serverMessage){
+                throw new Error(serverMessage)
+            }
+
+            throw new Error("CONNECTION ERROR")
+
+        }
+
+        throw new Error((error as Error).message)
+    
+    }
+}
+
+
+
+
 export {
     getGames,
     getGame,
     postGame,
-    putGame
+    putGame,
+    deleteGame
 }

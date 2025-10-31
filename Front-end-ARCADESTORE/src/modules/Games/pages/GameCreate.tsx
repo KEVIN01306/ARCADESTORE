@@ -5,12 +5,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { gameSchema } from "../../../zod/game.schema";
 import { postGame } from "../../../services/games.services";
 import { InputsForm } from "../components/index";
-import { successToast, errorToast } from "../../../utils/Toast";
+import { successToast, errorToast } from "../../../utils/toast";
 import { useEffect } from "react";
 import BreadcrumbsRoutes from "../../../components/utils/Breadcrumbs";
 import { Create } from "@mui/icons-material";
 import { PiGameController } from "react-icons/pi";
-import FormEstructure from "../components/FormEstructure";
+import FormEstructure from "../../../components/utils/FormEstructure";
 
 const GameCreate = () => {
     const breadcrumbsData = [

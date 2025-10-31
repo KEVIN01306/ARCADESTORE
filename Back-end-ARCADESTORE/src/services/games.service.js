@@ -50,8 +50,8 @@ const putGame = async (id, data) => {
 		const game = await Game.findOne({ _id: id })
 
 		if (!game) {
-			const error = new Error('NOT FOUND');
-			error.code = 'NOT FOUND';
+			const error = new Error('DATA_NOT_FOUND');
+			error.code = 'DATA_NOT_FOUND';
 			throw error;
 		}
 
@@ -62,10 +62,25 @@ const putGame = async (id, data) => {
 	
 }
 
+const deleteGame = async (id) => {
+
+	const deletedGame = await Game.findByIdAndDelete(id)
+
+	if (!deletedGame) {
+		const error = new Error('DATA_NOT_FOUND');
+		error.code = 'DATA_NOT_FOUND';
+		throw error;
+	}
+
+	return deletedGame
+
+}
+
 
 export {
 	getGames,
 	getGame,
 	postGame,
 	putGame,
+	deleteGame,
 }

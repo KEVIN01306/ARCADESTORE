@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { gameSchema } from "../../../zod/game.schema";
 import { getGame, putGame } from "../../../services/games.services";
 import { InputsForm } from "../components/index";
-import { successToast, errorToast } from "../../../utils/Toast";
+import { successToast, errorToast } from "../../../utils/toast";
 import { useEffect, useState } from "react";
 import BreadcrumbsRoutes from "../../../components/utils/Breadcrumbs";
 import { Create, Whatshot } from "@mui/icons-material";

@@ -13,3 +13,21 @@ export const GameInitialState = {
     background: "",
     context: "",
 }
+
+export const categories = [
+  "Acción",
+  "Aventura",
+  "Rol",
+  "Estrategia",
+  "Simulación",
+  "Deportes",
+  "Carreras",
+  "Puzle",
+  "Ritmo",
+  "Arcade",
+  "Shooter",
+  "Plataformas",
+  "Lucha",
+  "Sigilo",
+  "Supervivencia"
+];

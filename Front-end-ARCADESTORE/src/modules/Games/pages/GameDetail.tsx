@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getGame } from "../../../services/games.services";
+import { deleteGame, getGame } from "../../../services/games.services";
 import type { GameType } from "../../../types/gameType";
 import { Box, Typography, Stack, IconButton } from "@mui/material";
 import Loading from "../../../components/utils/Loading";
@@ -11,6 +11,7 @@ import BreadcrumbsRoutes from "../../../components/utils/Breadcrumbs";
 import { PiGameController } from "react-icons/pi";
 import { useShoppingCart } from "../../../store/useShoppingCart";
 import { useGoTo } from "../../../hooks/useGoTo";
+import { errorToast, successToast } from "../../../utils/toast";
 
 const GameDetail = () => {
     const { id } = useParams<string>();
@@ -50,12 +51,23 @@ const GameDetail = () => {
         setOpenConfirmModal(false);
     };
 
+    const handlerDelete = async (id: string) => {
+        try{
+            const response = await deleteGame(id)
+            successToast("Game Deleted: "+response)
+            handleCloseDelete()
+            goTo('/games')
+
+        }catch (err: any){
+            errorToast(err.message)
+        }
+    }
+
     const goTo = useGoTo()
 
     if (loading) return <Loading />
 
     if (error) return <ErrorCard errorText={error} restart={getGameOne} />;
-
 
     return (
         <>
@@ -64,7 +76,7 @@ const GameDetail = () => {
                 <ModalConfirm
                     open={openConfirmModal}
                     cancel={{ cancel: handleCloseDelete, name: "Cancelar" }}
-                    confirm={{ confirm: () => console.log("borrado"), name: "Eliminar", color: "error" }}
+                    confirm={{ confirm: () => handlerDelete(id as string), name: "Eliminar", color: "error" }}
                     text={`Seguro que quieres eliminar el juego: ${game?.name}, recuerda que
                     esta accion es irreversible`}
                     title={`Eliminar: ${game?.name}`}
@@ -100,16 +112,13 @@ const GameDetail = () => {
                                 boxShadow: "0px 0px 5px rgb(0,0,0,0.1)",
                             }}
                         />
-
                         <Stack spacing={5} sx={{ flex: 1, width: "100%" }}  >
                             <Typography variant="h4" fontWeight={700} color='#596d80'>
                                 {game?.name}
                             </Typography>
-
                             <Typography variant="body1" sx={{ opacity: 0.8 }} color='#596d80'>
                                 {game?.context}
                             </Typography>
-
                             <Typography variant="h5" fontWeight={600} color='#596d80'>
                                 ${game?.price}
                             </Typography>
@@ -124,8 +133,8 @@ const GameDetail = () => {
                                 </Box>
                                 {
                                     game?.type == "Pay" ? <IconButton color="primary" aria-label="add to shopping cart" onClick={() => saveShoppingCart(game)}>
-                                        <AddShoppingCart />
-                                    </IconButton>
+                                                            <AddShoppingCart />
+                                                        </IconButton>
                                         :
                                         ""
                                 }
