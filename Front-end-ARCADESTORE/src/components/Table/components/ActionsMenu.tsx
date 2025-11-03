@@ -3,7 +3,7 @@ import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 interface ActionsMenuProps<T> {
-  actions: { label: string; onClick: (row: T) => void }[];
+  actions: { label: string | React.ReactNode; onClick: (row: T) => void }[];
   row: T;
 }
 

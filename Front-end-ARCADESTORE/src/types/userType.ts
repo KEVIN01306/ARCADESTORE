@@ -4,14 +4,14 @@ import z from 'zod'
 export type UserType = z.infer<typeof userSchema>
 
 export const UserInitialState = {
-    _id: "",
-    firsName: "",
+    firstName: "",
     secondName: "",
-    fistLastName: "",
+    firstLastName: "",
     secondLastName: "",
     email: "",
     password: "",
     games: [],
-    dateBirthday: "",
+    rol: "",
+    dateBirthday: new Date().toISOString().split("T")[0],
     active: true
 }

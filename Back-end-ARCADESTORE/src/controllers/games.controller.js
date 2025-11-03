@@ -45,6 +45,7 @@ const getGameHandler = async(req,res) => {
 const postGameHandler = async (req,res) => {
     try{
         const data = req.body
+        console.log(data)
 
         const { error, value } = schemaGame.validate(data, { abortEarly: false }) 
 

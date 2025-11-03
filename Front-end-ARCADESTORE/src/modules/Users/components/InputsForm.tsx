@@ -1,6 +1,5 @@
 import { FormControl, Grid, InputLabel, MenuItem, Select, TextField } from "@mui/material"
 import { Controller } from "react-hook-form"
-import { useEffect } from "react";
 
 
 interface InputsFormProps{
@@ -11,7 +10,7 @@ interface InputsFormProps{
     setValue: any;
 }
 
-const InputsForm = ({register,errors, control, watch,setValue}: InputsFormProps) => {
+const InputsForm = ({register,errors, control}: InputsFormProps) => {
 
     return (
         <>
@@ -95,8 +94,8 @@ const InputsForm = ({register,errors, control, watch,setValue}: InputsFormProps)
                                 variant="standard"
                                 {...field}
                             >
-                                <MenuItem value="Admin">Admin</MenuItem>
-                                <MenuItem value="User">User</MenuItem>
+                                <MenuItem value="admin">Admin</MenuItem>
+                                <MenuItem value="user">User</MenuItem>
                             </Select>
                         )}
                     />

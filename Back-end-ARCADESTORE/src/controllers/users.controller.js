@@ -1,6 +1,6 @@
 import { responseError, responseSucces, responseSuccesAll } from "../helpers/response.helper.js";
 import { schemaUser } from "../schemas/user.schema.js";
-import { getUSer, getUSers, postUser } from "../services/users.service.js";
+import { getUSer, getUSers, patchUserActive, postUser, putUser } from "../services/users.service.js";
 
 
 const getUsersHandler = async (req, res) => {
@@ -78,8 +78,65 @@ const postUserHandler = async (req,res) => {
    
 }
 
+
+
+const putUserHandler = async (req,res) => {
+    try{
+        const { id } = req.params
+        const data = req.body
+
+        const { error, value } = schemaUser.validate(data, { abortEarly: false }) 
+
+    if ( error && error.details ){ 
+            return res.status(400).json(responseError(error.details.map(e => e.message)))
+        }
+        const UserEmail = await putUser(id,value)
+
+        res.status(200).json(responseSucces("User successfully updated  ",UserEmail))
+    }catch (error){
+        let errorCode = 500;
+        let errorMessage = 'INTERNAL_SERVER_ERROR'
+        switch(error.code){
+            case 'DATA_NOT_FOUND':
+                errorCode = 400;
+                errorMessage = error.code;
+                break;
+        }
+
+        console.log(error)
+
+        return res.status(errorCode).json(responseError(errorMessage));
+    }
+   
+}
+
+const patchUserActiveHandler = async (req, res) => {
+    try {
+
+        const { id } = req.params; 
+
+        const result = await patchUserActive(id); 
+        res.status(200).json(responseSucces("User active state successfully toggled", result));
+
+    } catch (error) {
+        let errorCode = 500;
+        let errorMessage = 'INTERNAL_SERVER_ERROR';
+        switch (error.code) {
+            case 'DATA_NOT_FOUND':
+                errorCode = 404;
+                errorMessage = error.code;
+                break;
+        }
+
+        console.error(error);
+        return res.status(errorCode).json(responseError(errorMessage));
+    }
+}
+
 export {
     getUsersHandler,
     getUserHandler,
-    postUserHandler
+    postUserHandler,
+    putUserHandler,
+    patchUserActiveHandler
 }

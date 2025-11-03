@@ -17,8 +17,8 @@ export interface Column<T> {
   minWidth?: number;
   type?: string;
   align?: "left" | "right" | "center";
-  actions?: { label: string; onClick: (row: T) => void }[];
-  format?: (value: any, row?: T) => string | number;
+  actions?: { label: string | React.ReactNode ; onClick: (row: T) => void }[];
+  format?: (value: any, row?: T) => string | number | React.ReactNode;
 }
 
 interface TableCustomProps<T> {

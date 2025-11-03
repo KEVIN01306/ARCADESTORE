@@ -19,8 +19,10 @@ import {
 import { DetailData } from "../components/index";
 import { PiUserCheck, PiUsersFill } from "react-icons/pi";
 import BreadcrumbsRoutes from "../../../components/utils/Breadcrumbs";
+import { useGoTo } from "../../../hooks/useGoTo";
 
 const UserDetail = () => {
+    const goTo = useGoTo()
     const { id } = useParams()
     const [user, setUser] = useState<UserType>()
     const [loading, setLoading] = useState<boolean>(true)
@@ -105,7 +107,7 @@ const UserDetail = () => {
                         <Divider sx={{ my: 3 }} />
 
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
-                            <Button variant="outlined" color="primary" onClick={() => console.log('Editar perfil')}>
+                            <Button variant="outlined" color="primary" onClick={() => goTo(String('edit'))}>
                                 Editar Perfil
                             </Button>
                             <Button variant="contained" color="secondary" onClick={() => console.log('Cambiar Contraseña')}>
