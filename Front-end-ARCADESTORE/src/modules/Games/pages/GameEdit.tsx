@@ -91,7 +91,7 @@ const GameEdit = () => {
                         fullWidth
                     >
 
-                        {isSubmitting ? "Guardando..." : "Crear juego"}
+                        {isSubmitting ? "Loading..." : "Save Game"}
                     </Button>
                 </Grid>
             </FormEstructure>

@@ -61,3 +61,8 @@ const FullLayout = () => {
 }
 
 export default FullLayout;
+
+
+//<Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"} flexDirection={'column'} alignContent={"center"}position={"relative"}>
+
+//                    </Box>

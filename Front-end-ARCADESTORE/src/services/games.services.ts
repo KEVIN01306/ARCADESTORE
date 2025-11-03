@@ -52,6 +52,7 @@ const getGame = async (_id: GameType['_id']): Promise<GameType> => {
         if ( !game ){
             throw new Error("THERE ARE NO GAME")
         }
+        
 
         return game;
         

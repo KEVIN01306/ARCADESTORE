@@ -20,9 +20,9 @@ const GamesList = () => {
             try {
                 setLoading(true)
                 const response = await getGames();
-
                 setGames(response)
             }catch(err: any){
+                console.error(err.message)
                 setError(err.message)
             } finally {
                 setLoading(false)

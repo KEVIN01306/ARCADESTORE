@@ -8,5 +8,4 @@ export const schemaGame = Joi.object({
     price: Joi.number().min(0).required(),
     background: Joi.string().required(),
     context: Joi.string().min(10).max(255).required(),
-    active: Joi.boolean().required()
 })

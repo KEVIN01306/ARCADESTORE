@@ -2,9 +2,21 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
     {
-        name: {
+        firstName: {
             type: String,
             require: true
+        },
+        secondName: {
+            type: String,
+            require: false
+        },
+        firstLastName: {
+            type: String,
+            require: true
+        },
+        secondLastName: {
+            type: String,
+            require: false
         },
         email: {
             type: String,
@@ -26,6 +38,11 @@ const userSchema = new mongoose.Schema(
         dateBirthday: {
             type: Date
         },
+        active: {
+            type: Boolean,
+            required: true
+        },
+        
     }
 )
 
