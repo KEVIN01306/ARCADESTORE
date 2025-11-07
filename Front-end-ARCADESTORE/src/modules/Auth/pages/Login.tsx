@@ -60,7 +60,7 @@ const Login = () => {
                         <Box sx={{ textAlign: 'center', mb: 3 }}>
                             <LoginIcon sx={{ fontSize: 40, color: 'primary.main' }} />
                             <Typography variant="h5" component="h1" fontWeight="bold" sx={{ mt: 1 }}>
-                                Iniciar Sesión
+                                Log in
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
                                 Accede a tu cuenta de ARCADESTORE
@@ -82,7 +82,7 @@ const Login = () => {
                                 startIcon={<LoginIcon />}
                                 sx={{ mt: 2, mb: 2, py: 1.5, borderRadius: 1 }}
                             >
-                                Iniciar Sesión
+                                Send
                             </Button>
                         </Box>
 
@@ -91,8 +91,8 @@ const Login = () => {
                         <Box sx={{ textAlign: 'center' }}>
                             <Typography variant="body2">
                                 ¿Aún no tienes cuenta?{' '}
-                                <Link href="auth/register" variant="body2" color="secondary" sx={{ fontWeight: 'bold', textDecoration: 'none' }}>
-                                    Regístrate aquí
+                                <Link href="/public/auth/register" variant="body2" color="secondary" sx={{ fontWeight: 'bold', textDecoration: 'none' }}>
+                                    Register here
                                 </Link>
                             </Typography>
                         </Box>

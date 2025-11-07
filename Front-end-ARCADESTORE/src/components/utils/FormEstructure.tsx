@@ -4,16 +4,17 @@ import React from "react";
 
 interface FormEstructureProps {
   handleSubmit: () => void;
-  sx?: SxProps<Theme>
-  pGrid?: number
+  sx?: SxProps<Theme>;
+  pGrid?: number;
+  center?: boolean
 }
 
-const FormEstructure = ({children,handleSubmit,sx,pGrid}: React.PropsWithChildren<FormEstructureProps>) => {
+const FormEstructure = ({children,handleSubmit,sx,pGrid,center}: React.PropsWithChildren<FormEstructureProps>) => {
   return (
     <CardForm sx={sx}>
       <Grid flexGrow={1} padding={pGrid ? pGrid : 2} container spacing={2} >
         <form onSubmit={handleSubmit} noValidate style={{ width: "100%" }}>
-          <Grid container spacing={2} padding={pGrid ? pGrid : 2}>
+          <Grid container spacing={2} padding={pGrid ? pGrid : 2} sx={center ? {display: "flex", justifyContent: "center"} : {}}>
             {children}
           </Grid>
         </form>

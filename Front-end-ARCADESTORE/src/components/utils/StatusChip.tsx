@@ -3,11 +3,9 @@ import { Chip } from "@mui/material";
 
 interface StatusChipProps{
     type: string,
-    purchased: boolean,
 }
 
-const StatusChip = ({ type, purchased }: StatusChipProps) => {
-  const label = type === "Free" ? "Gratis" : purchased ? "Comprado" : "De Pago";
+const StatusChip = ({ type }: StatusChipProps) => {
 
   const styles = {
     base: {
@@ -29,11 +27,11 @@ const StatusChip = ({ type, purchased }: StatusChipProps) => {
     },
   };
 
-  const style = purchased || type === "Free" ? styles.success : styles.warning;
+  const style =  type === "Free" || type === "Play" ? styles.success : styles.warning;
 
   return (
     <Chip
-      label={label}
+      label={type}
       sx={{ ...styles.base, ...style }}
     />
   );

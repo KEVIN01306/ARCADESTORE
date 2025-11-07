@@ -11,7 +11,7 @@ export const UserInitialState = {
     email: "",
     password: "",
     games: [],
-    role: "",
+    role: "user",
     dateBirthday: new Date().toISOString().split("T")[0],
     active: true
 }

@@ -17,7 +17,7 @@ const Part = ({ part, index, move, changeSelect,img }: PartProps) => {
 
     return (
         <div
-            style={{backgroundImage:` ${!isBlank && "url('../imagenes/"+img+"')"}`}}
+            style={{backgroundImage: !isBlank ? `url(/imagenes/${img})` : "none"}}
             key={index}
             onClick={handleClick}
             className={`

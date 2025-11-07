@@ -1,5 +1,8 @@
 @import 'tailwindcss';
-@plugin 'daisyui';
+@plugin "daisyui";
+
+
+@import "./parts.css";
 
 #root{
     background-color: "rgb(251, 251, 252)"

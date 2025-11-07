@@ -29,6 +29,7 @@ const GamePay = () => {
     const shoppingCart = useShoppingCart((state) => state.shoppingCardtList);
     const clearCart = useShoppingCart((state) => state.clearShoppingCart);
     const user = useAuthStore.getState().user
+    const refreshGames = useAuthStore.getState().refreshGames
 
     const {
         register,
@@ -44,6 +45,7 @@ const GamePay = () => {
         try{
 
             const response = await patchUserGameMultiple(user?._id,shoppingCart.map(({ _id }) => _id))
+            refreshGames(shoppingCart.map(({ _id }) => _id))
             clearCart();
             reset();
             successToast(String(response.message))

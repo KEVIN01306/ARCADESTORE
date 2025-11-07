@@ -8,7 +8,7 @@ function App() {
   return (
     <>
         <ToastContainer/>
-        <div className="min-h-screen w-screen relative overflow-x-hidden p-0 m-0 font-inter">
+        <div className="min-h-auto relative overflow-x-hidden p-0 m-0 font-inter" style={{width: "100%"}}>
           <Bg/>
             <div className="flex flex-col items-center justify-center min-h-screen relative z-10 p-4 ">
               <GamePuzzle/>

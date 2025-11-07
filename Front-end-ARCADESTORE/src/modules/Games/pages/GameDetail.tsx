@@ -13,6 +13,7 @@ import { useShoppingCart } from "../../../store/useShoppingCart";
 import { useGoTo } from "../../../hooks/useGoTo";
 import { errorToast, successToast } from "../../../utils/toast";
 import { useAuthStore } from "../../../store/useAuthStore";
+import { RiPlayLargeFill } from "react-icons/ri";
 
 const GameDetail = () => {
     const { id } = useParams<string>();
@@ -131,11 +132,13 @@ const GameDetail = () => {
                                     : ""
                                 }
                                 {
-                                    game?.type == "Pay" ? <IconButton color="primary" aria-label="add to shopping cart" onClick={() => saveShoppingCart(game)}>
+                                    game?.type == "Pay" &&  !user?.games.includes(String(game._id)) ? <IconButton color="primary" aria-label="add to shopping cart" onClick={() => saveShoppingCart(game)}>
                                         <AddShoppingCart />
                                     </IconButton>
                                         :
-                                        ""
+                                    <IconButton color="primary"  sx={{boxShadow: "0px 0px 5px rgb(0,0,0,0.3)"}} aria-label="add to shopping cart" onClick={() => goTo("/games/"+game?.name+"/play")}>
+                                        <RiPlayLargeFill color="#31d331"/>
+                                    </IconButton>
                                 }
                             </Box>
                         </Stack>

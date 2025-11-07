@@ -1,7 +1,9 @@
 import { verifyAccessToken } from "../helpers/auth.helper.js"
 import { responseError, responseSucces } from "../helpers/response.helper.js"
 import { schemaAuth } from "../schemas/auth.schema.js"
+import { schemaUser } from "../schemas/user.schema.js"
 import { login } from "../services/auth.services.js"
+import { postUser } from "../services/users.service.js"
 
 
 const loginHandler = async (req,res) => {
@@ -62,7 +64,53 @@ const verifyTokenHandler = () => {
 }
 
 
+const registerHandler = async (req,res) => {
+    try{
+        const data = req.body
+
+        
+        const user = {
+            firstName: data.firstName,
+            secondName: data.secondName,
+            firstLastName: data.firstLastName,
+            secondLastName: data.secondLastName,
+            email: data.email,
+            password: data.password,
+            role: "user",
+            games: [],
+            dateBirthday: data.dateBirthday,
+            active: true
+        }
+
+        const { error, value } = schemaUser.validate(user, { abortEarly: false }) 
+
+    if ( error && error.details ){ 
+            return res.status(400).json(responseError(error.details.map(e => e.message)))
+        }
+
+        const userEmail = await postUser(value)
+
+        res.status(201).json(responseSucces("User successfully created  ",userEmail))
+    }catch (error){
+        let errorCode = 500;
+        let errorMessage = 'INTERNAL_SERVER_ERROR'
+        console.log(error)
+        switch(error.code){
+            case 'CONFLICT':
+                errorCode = 400;
+                errorMessage = error.code;
+                break;
+        }
+
+        return res.status(errorCode).json(responseError(errorMessage));
+    }
+   
+}
+
+
+
 export {
     loginHandler,
-    verifyTokenHandler
+    verifyTokenHandler,
+    registerHandler
 };

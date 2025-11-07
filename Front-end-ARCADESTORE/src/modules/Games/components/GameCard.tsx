@@ -3,6 +3,7 @@ import { useState } from "react";
 import StatusChip from "../../../components/utils/StatusChip";
 import type { GameType } from "../../../types/gameType";
 import { useGoTo } from "../../../hooks/useGoTo";
+import { useAuthStore } from "../../../store/useAuthStore";
 
 interface CardGameView{
     game: GameType;
@@ -10,9 +11,10 @@ interface CardGameView{
 
 export default function GameCard( { game } : CardGameView) {
   const goTo = useGoTo()
+  const user = useAuthStore.getState().user
   const { name, type, price, background, context } = game;
   const [hover, setHover] = useState(false);
-  const [purchased] = useState(false);
+
 
   return (
     <Card
@@ -77,7 +79,7 @@ export default function GameCard( { game } : CardGameView) {
       </Box>
 
       <Box sx={{p: 1, display: "flex", justifyContent: "end"}}>
-        <StatusChip type={type} purchased={purchased}/>
+        <StatusChip type={user?.games.includes(String(game._id)) ? "Play" : type}/>
       </Box>
     </Card>
   );
