@@ -17,7 +17,7 @@ app.use(cors({
 }))
 
 app.use("/",routes);
-/*
+
 const serverStart = async () => {
     try{
         await connectToMongo();
@@ -27,11 +27,4 @@ const serverStart = async () => {
     }
 };
 
-serverStart()*/
-
-
-connectToMongo()
-    .then(() => console.log("MongoDB conectado"))
-    .catch(err => console.error("Error conectando a MongoDB:", err));
-
-export default app;
+serverStart()
