@@ -15,7 +15,7 @@ const DataDetail = ({ user }: DataDetail) => {
         firstLastName,
         secondLastName,
         email,
-        rol,
+        role,
         games,
         dateBirthday,
         active,
@@ -54,7 +54,7 @@ const DataDetail = ({ user }: DataDetail) => {
                             />
                             <DetailItem
                                 label="Rol"
-                                value={rol || 'N/A'}
+                                value={role || 'N/A'}
                                 icon={<VpnKey fontSize="small" />}
                             />
                             <DetailItem

@@ -1,6 +1,6 @@
 import { responseError, responseSucces, responseSuccesAll } from "../helpers/response.helper.js";
 import { schemaUser } from "../schemas/user.schema.js";
-import { getUSer, getUSers, patchUserActive, postUser, putUser } from "../services/users.service.js";
+import { getUSer, getUSers, patchUserActive, patchUserGame, patchUserGameMultiple, postUser, putUser } from "../services/users.service.js";
 
 
 const getUsersHandler = async (req, res) => {
@@ -133,10 +133,71 @@ const patchUserActiveHandler = async (req, res) => {
     }
 }
 
+
+
+const patchUserGameHandler = async (req, res) => {
+    try {
+
+        const userId = req.params.id; 
+
+        const { gameId } = req.body;
+
+        const result = await patchUserGame(userId, gameId); 
+        res.status(200).json(responseSucces("Transaction Completed", result));
+
+    } catch (error) {
+        let errorCode = 500;
+        let errorMessage = 'INTERNAL_SERVER_ERROR';
+        switch (error.code) {
+            case 'DATA_NOT_FOUND':
+                errorCode = 404;
+                errorMessage = error.code;
+                break;
+        }
+
+        console.error(error);
+        return res.status(errorCode).json(responseError(errorMessage));
+    }
+}
+
+
+
+const patchUserGameMultipleHandler = async (req, res) => {
+    try {
+
+        const userId = req.params.id; 
+
+        const { gameIds } = req.body;
+
+
+        if (!Array.isArray(gameIds) || gameIds.length === 0) {
+            return res.status(400).json({ error: "It is required that it be an array 'gameIds'." });
+        }
+
+        const result = await patchUserGameMultiple(userId, gameIds); 
+        res.status(200).json(responseSucces(`${gameIds.length} games associated.`, result));
+
+    } catch (error) {
+        let errorCode = 500;
+        let errorMessage = 'INTERNAL_SERVER_ERROR';
+        switch (error.code) {
+            case 'DATA_NOT_FOUND':
+                errorCode = 404;
+                errorMessage = error.code;
+                break;
+        }
+
+        console.error(error);
+        return res.status(errorCode).json(responseError(errorMessage));
+    }
+}
+
 export {
     getUsersHandler,
     getUserHandler,
     postUserHandler,
     putUserHandler,
-    patchUserActiveHandler
+    patchUserActiveHandler,
+    patchUserGameHandler,
+    patchUserGameMultipleHandler
 }

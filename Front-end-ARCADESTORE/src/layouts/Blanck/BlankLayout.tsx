@@ -4,10 +4,6 @@ const BlankLayout = () => {
 
     return (
         <>
-            <div>
-                <h1>este es el black</h1>
-            </div>
-
             <Outlet/>
         </>
     )

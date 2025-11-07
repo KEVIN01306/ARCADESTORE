@@ -1,9 +1,10 @@
 import axios from "axios";
+import { api } from "../axios/axios";
 import type { UserType } from "../types/userType";
 import type { apiResponse } from "../types/apiResponse";
+import type { GameType } from "../types/gameType";
 const API_URL = import.meta.env.VITE_DOMAIN
 const API_USERS = API_URL + "users"
-const api = axios;
 
 const getUsers = async (): Promise<UserType[]> => {
     try {
@@ -21,7 +22,7 @@ const getUsers = async (): Promise<UserType[]> => {
         return users;
 
     } catch (error) {
-        if (api.isAxiosError(error)) {
+        if (axios.isAxiosError(error)) {
             const status = error.response?.status;
 
             if (status == 500) {
@@ -42,7 +43,7 @@ const getUsers = async (): Promise<UserType[]> => {
 
 const getUser = async (id: UserType['_id']): Promise<UserType> => {
     try {
-        const response = await api.get<apiResponse<UserType>>(API_USERS+"/"+id)
+        const response = await api.get<apiResponse<UserType>>(API_USERS + "/" + id)
         const user = response.data.data
 
         if (!user) {
@@ -54,7 +55,7 @@ const getUser = async (id: UserType['_id']): Promise<UserType> => {
         return user;
 
     } catch (error) {
-        if (api.isAxiosError(error)) {
+        if (axios.isAxiosError(error)) {
             const status = error.response?.status;
 
             if (status == 500) {
@@ -76,32 +77,32 @@ const getUser = async (id: UserType['_id']): Promise<UserType> => {
 
 
 
-const postUser = async(user: UserType)  => {
-    try{
+const postUser = async (user: UserType) => {
+    try {
 
-    const response = await api.post<apiResponse<UserType>>(API_USERS,user)
+        const response = await api.post<apiResponse<UserType>>(API_USERS, user)
 
-    return String(response.data.data)
+        return String(response.data.data)
 
-    }catch (error){
+    } catch (error) {
         console.log(error)
-                if (api.isAxiosError(error)){
+        if (axios.isAxiosError(error)) {
             const status = error.response?.status;
 
-            if (status === 404){
+            if (status === 404) {
                 throw new Error("NOT FOUND API OR NOT EXISTED IN THE SERVER")
             }
 
-            if (status == 500){
+            if (status == 500) {
                 throw new Error("INTERNAL ERROR SERVER")
             }
             const serverMessage = error.response?.data?.message;
 
-            if (status == 400 && serverMessage == "CONFLICT"){
+            if (status == 400 && serverMessage == "CONFLICT") {
                 throw new Error("AL READY EXIST THIS USER")
             }
 
-            if (serverMessage){
+            if (serverMessage) {
                 throw new Error(serverMessage)
             }
 
@@ -110,37 +111,37 @@ const postUser = async(user: UserType)  => {
         }
 
         throw new Error((error as Error).message)
-    
+
     }
 }
 
 
-const putUser = async(id: UserType['_id'] ,user: UserType)  => {
-    try{
+const putUser = async (id: UserType['_id'], user: UserType) => {
+    try {
 
-    const response = await api.put<apiResponse<UserType>>(API_USERS+"/"+id,user)
+        const response = await api.put<apiResponse<UserType>>(API_USERS + "/" + id, user)
 
-    return String(response.data.data)
+        return String(response.data.data)
 
-    }catch (error){
+    } catch (error) {
         console.log(error)
-                if (api.isAxiosError(error)){
+        if (axios.isAxiosError(error)) {
             const status = error.response?.status;
 
-            if (status === 404){
+            if (status === 404) {
                 throw new Error("NOT FOUND API OR NOT EXISTED IN THE SERVER")
             }
 
-            if (status == 500){
+            if (status == 500) {
                 throw new Error("INTERNAL ERROR SERVER")
             }
             const serverMessage = error.response?.data?.message;
 
-            if (status == 400 && serverMessage == "CONFLICT"){
+            if (status == 400 && serverMessage == "CONFLICT") {
                 throw new Error("AL READY EXIST THIS GAME")
             }
 
-            if (serverMessage){
+            if (serverMessage) {
                 throw new Error(serverMessage)
             }
 
@@ -149,38 +150,38 @@ const putUser = async(id: UserType['_id'] ,user: UserType)  => {
         }
 
         throw new Error((error as Error).message)
-    
+
     }
 }
 
 
 
-const patchUserActive = async(id: UserType['_id'])  => {
-    try{
+const patchUserActive = async (id: UserType['_id']) => {
+    try {
 
-    const response = await api.patch<apiResponse<UserType>>(API_USERS+"/"+id)
+        const response = await api.patch<apiResponse<UserType>>(API_USERS + "/" + id+"/active")
 
-    return response.data.data
+        return response.data.data
 
-    }catch (error){
+    } catch (error) {
         console.log(error)
-                if (api.isAxiosError(error)){
+        if (axios.isAxiosError(error)) {
             const status = error.response?.status;
 
-            if (status === 404){
+            if (status === 404) {
                 throw new Error("NOT FOUND API OR NOT EXISTED IN THE SERVER")
             }
 
-            if (status == 500){
+            if (status == 500) {
                 throw new Error("INTERNAL ERROR SERVER")
             }
             const serverMessage = error.response?.data?.message;
 
-            if (status == 400 && serverMessage == "CONFLICT"){
+            if (status == 400 && serverMessage == "CONFLICT") {
                 throw new Error("AL READY EXIST THIS GAME")
             }
 
-            if (serverMessage){
+            if (serverMessage) {
                 throw new Error(serverMessage)
             }
 
@@ -189,7 +190,79 @@ const patchUserActive = async(id: UserType['_id'])  => {
         }
 
         throw new Error((error as Error).message)
-    
+
+    }
+}
+
+
+
+const patchUserGame = async (userId: UserType['_id'], gameId: GameType['_id']) => {
+    try {
+
+        const response = await api.patch<apiResponse<UserType>>(API_USERS + "/" + userId+"/games",{gameId})
+
+        return response.data.data
+
+    } catch (error) {
+        console.log(error)
+        if (axios.isAxiosError(error)) {
+            const status = error.response?.status;
+
+            if (status === 404) {
+                throw new Error("NOT FOUND API OR NOT EXISTED IN THE SERVER")
+            }
+
+            if (status == 500) {
+                throw new Error("INTERNAL ERROR SERVER")
+            }
+            const serverMessage = error.response?.data?.message;
+
+            if (serverMessage) {
+                throw new Error(serverMessage)
+            }
+
+            throw new Error("CONNECTION ERROR")
+
+        }
+
+        throw new Error((error as Error).message)
+
+    }
+}
+
+
+
+const patchUserGameMultiple = async (userId: UserType['_id'], gameIds: GameType['_id'][]) => {
+    try {
+
+        const response = await api.patch<apiResponse<UserType>>(API_USERS + "/" + userId+"/games/multiple",{gameIds})
+
+        return response.data
+
+    } catch (error) {
+        console.log(error)
+        if (axios.isAxiosError(error)) {
+            const status = error.response?.status;
+
+            if (status === 404) {
+                throw new Error("NOT FOUND API OR NOT EXISTED IN THE SERVER")
+            }
+
+            if (status == 500) {
+                throw new Error("INTERNAL ERROR SERVER")
+            }
+            const serverMessage = error.response?.data?.message;
+
+            if (serverMessage) {
+                throw new Error(serverMessage)
+            }
+
+            throw new Error("CONNECTION ERROR")
+
+        }
+
+        throw new Error((error as Error).message)
+
     }
 }
 
@@ -199,5 +272,7 @@ export {
     getUser,
     postUser,
     putUser,
-    patchUserActive
+    patchUserActive,
+    patchUserGame,
+    patchUserGameMultiple
 }

@@ -68,7 +68,7 @@ const UsersList = () => {
     const columns: Column<UserType>[] = [
     { id: "firstName", label: "First Name", minWidth: 150 },
     { id: "secondName", label: "second Name", minWidth: 100 },
-    { id: "rol", label: "Rol", minWidth: 100 },
+    { id: "role", label: "Rol", minWidth: 100 },
     { id: "email", label: "Email", minWidth: 100 },
     { id: "active", label: "Estado", minWidth: 100, format: (value: any) => changeChip(value)},
     {

@@ -59,7 +59,7 @@ const UserDetail = () => {
         secondName,
         firstLastName,
         secondLastName,
-        rol,
+        role,
     } = user;
 
     const fullName = `${firstName || ''} ${secondName || ''} ${firstLastName || ''} ${secondLastName || ''}`.trim();
@@ -89,9 +89,9 @@ const UserDetail = () => {
                             </Typography>
 
                             <Chip
-                                label={rol?.toUpperCase() || 'USUARIO'}
+                                label={role?.toUpperCase() || 'USUARIO'}
                                 size="small"
-                                color={rol === 'admin' ? 'secondary' : 'default'}
+                                color={role === 'admin' ? 'secondary' : 'default'}
                                 sx={{ mt: 0.5 }}
                             />
                         </Box>

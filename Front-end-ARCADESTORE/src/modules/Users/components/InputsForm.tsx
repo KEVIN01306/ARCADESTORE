@@ -83,13 +83,13 @@ const InputsForm = ({register,errors, control}: InputsFormProps) => {
             </Grid>
             <Grid size={{sm: 12, md: 6}}>
                 <FormControl fullWidth size="small" error={!!errors.rol}>
-                    <InputLabel id="rol-label">Rol</InputLabel>
+                    <InputLabel id="role-label">Rol</InputLabel>
                     <Controller
-                        name="rol"
+                        name="role"
                         control={control}
                         render={({ field }) => (
                             <Select
-                                labelId="rol-label"
+                                labelId="role-label"
                                 label="Rol"
                                 variant="standard"
                                 {...field}

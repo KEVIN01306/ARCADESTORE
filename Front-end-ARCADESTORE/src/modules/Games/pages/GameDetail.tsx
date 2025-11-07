@@ -12,9 +12,11 @@ import { PiGameController } from "react-icons/pi";
 import { useShoppingCart } from "../../../store/useShoppingCart";
 import { useGoTo } from "../../../hooks/useGoTo";
 import { errorToast, successToast } from "../../../utils/toast";
+import { useAuthStore } from "../../../store/useAuthStore";
 
 const GameDetail = () => {
     const { id } = useParams<string>();
+    const user = useAuthStore.getState().user
     const [game, setGame] = useState<GameType>();
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
@@ -38,9 +40,7 @@ const GameDetail = () => {
     };
 
     useEffect(() => {
-
         getGameOne();
-
     }, []);
 
     const handleClickOpenDelete = () => {
@@ -52,17 +52,16 @@ const GameDetail = () => {
     };
 
     const handlerDelete = async (id: string) => {
-        try{
+        try {
             const response = await deleteGame(id)
-            successToast("Game Deleted: "+response)
+            successToast("Game Deleted: " + response)
             handleCloseDelete()
             goTo('/games')
 
-        }catch (err: any){
+        } catch (err: any) {
             errorToast(err.message)
         }
     }
-
     const goTo = useGoTo()
 
     if (loading) return <Loading />
@@ -73,9 +72,7 @@ const GameDetail = () => {
         <>
             <Box>
                 <BreadcrumbsRoutes items={breadcrumbsData} />
-                <ModalConfirm
-                    open={openConfirmModal}
-                    cancel={{ cancel: handleCloseDelete, name: "Cancelar" }}
+                <ModalConfirm open={openConfirmModal} cancel={{ cancel: handleCloseDelete, name: "Cancelar" }}
                     confirm={{ confirm: () => handlerDelete(id as string), name: "Eliminar", color: "error" }}
                     text={`Seguro que quieres eliminar el juego: ${game?.name}, recuerda que
                     esta accion es irreversible`}
@@ -89,8 +86,7 @@ const GameDetail = () => {
                         justifyContent: "center",
                         alignItems: "center",
                         p: 3,
-                    }}
-                >
+                    }}>
                     <Stack
                         direction={{ xs: "column", md: "row" }}
                         spacing={4}
@@ -98,8 +94,7 @@ const GameDetail = () => {
                             maxWidth: "1000px",
                             width: "100%",
                             alignItems: { xs: "center", md: "flex-start" },
-                        }}
-                    >
+                        }}>
                         <Box
                             component="img"
                             src={game?.background}
@@ -123,18 +118,22 @@ const GameDetail = () => {
                                 ${game?.price}
                             </Typography>
                             <Box display={"flex"} justifyContent={"space-between"} >
-                                <Box display={"flex"} justifyContent={"center"} gap={2} >
-                                    <IconButton color="primary" aria-label="add to shopping cart" onClick={() => goTo("edit")}>
-                                        <Edit/>
-                                    </IconButton>
-                                    <IconButton onClick={() => handleClickOpenDelete()} color="error" aria-label="add to shopping cart">
-                                        <DeleteForeverOutlined />
-                                    </IconButton>
-                                </Box>
+                                {
+                                    user?.role == "admin" ?
+                                            <Box display={"flex"} justifyContent={"center"} gap={2} >
+                                                <IconButton color="primary" aria-label="add to shopping cart" onClick={() => goTo("edit")}>
+                                                    <Edit />
+                                                </IconButton>
+                                                <IconButton onClick={() => handleClickOpenDelete()} color="error" aria-label="add to shopping cart">
+                                                    <DeleteForeverOutlined />
+                                                </IconButton>
+                                            </Box>
+                                    : ""
+                                }
                                 {
                                     game?.type == "Pay" ? <IconButton color="primary" aria-label="add to shopping cart" onClick={() => saveShoppingCart(game)}>
-                                                            <AddShoppingCart />
-                                                        </IconButton>
+                                        <AddShoppingCart />
+                                    </IconButton>
                                         :
                                         ""
                                 }

@@ -6,11 +6,13 @@ const MenuItems = [
         name: "Games",
         link: "/games",
         icon: PiGameControllerFill,
+        roles: ['admin','user']
     },
     {
         name: "Users",
         link: "/users",
         icon: PiUserCheckDuotone,
+        roles: ['admin']
     }
 ]
 

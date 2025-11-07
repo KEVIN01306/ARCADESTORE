@@ -19,7 +19,7 @@ export const userSchema = z.object({
             message: "The email not is: 'gmail.com' o 'umes.org'"
         }
     ),
-    rol: z.string(),
+    role: z.string(),
     password: z.string().min(8),
     games: z.array(z.string()),
     dateBirthday: z.string().min(1,'The dateBirthday is requered'),

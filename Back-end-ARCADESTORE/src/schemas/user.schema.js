@@ -9,7 +9,7 @@ export const schemaUser = Joi.object({
     secondLastName: Joi.string().min(2).max(20).optional(),
     email: Joi.string().email().pattern(/@(gmail\.com|umes\.org)$/).required(),
     password: Joi.string().min(8).required(),
-    rol: Joi.string().required(),
+    role: Joi.string().required(),
     games: Joi.array().items(Joi.string()),
     dateBirthday: Joi.string().replace(/\s/g, ""),
     active: Joi.boolean().required()

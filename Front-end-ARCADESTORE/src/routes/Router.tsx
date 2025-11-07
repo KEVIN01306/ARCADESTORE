@@ -4,6 +4,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import BlankLayout from "../layouts/Blanck/BlankLayout";
 import { gamesRoutes } from "../modules/Games/routes";
 import { UsersRoutes } from "../modules/Users/routes";
+import { authRoutes } from "../modules/Auth/routes";
 
 const Home = lazy(() => import('../modules/Home'));
 
@@ -25,11 +26,10 @@ const Router = [
         ]
     },
     {
-        path: "/auth",
+        path: "/public",
         element: <BlankLayout/>,
         children: [
-            { path: 'login', element: <h1>este es el login</h1> },
-            { path: 'register', element: <h1>este es el regiter</h1> },
+            ...authRoutes,
             { path: '*',  element: <h1>Pagina no encontrada</h1> }
         ]
     },

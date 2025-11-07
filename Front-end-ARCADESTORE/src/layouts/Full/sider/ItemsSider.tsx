@@ -8,10 +8,13 @@ import Toolbar from "@mui/material/Toolbar";
 import MenuItems from "./MenuItems";
 import { Typography } from "@mui/material";
 import { useGoTo } from "../../../hooks/useGoTo";
+import { useAuthStore } from "../../../store/useAuthStore";
 
 
 const ItemsSider = () => {
+    const user = useAuthStore.getState().user
     const goTo = useGoTo()
+    const filteredMenu = MenuItems.filter(item => item.roles.includes(user?.role ? user?.role : "" ));
 
 return (
     <Box>
@@ -22,7 +25,7 @@ return (
              }}>ARCADESTORE</Typography>
       </Toolbar>
       <List>
-        {MenuItems.map((item) => (
+        {filteredMenu.map((item) => (
           <ListItem key={item.name} disablePadding>
             <ListItemButton sx={{'&:hover':{ backgroundColor: 'transparent' }}} onClick={() => goTo(item.link)}>
               <ListItemIcon sx={{ 

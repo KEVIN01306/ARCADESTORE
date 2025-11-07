@@ -86,11 +86,61 @@ const patchUserActive = async (id) => {
 }
 
 
+const patchUserGame = async(userId, gameId) => {
+
+	const user = await User.findOne({_id: userId}) 
+
+    if (!user) {
+        const error = new Error('DATA_NOT_FOUND');
+        error.code = 'DATA_NOT_FOUND';
+        throw error;
+    }
+
+	const updateUser = await User.findByIdAndUpdate(
+		userId,
+		{ $addToSet: { games: gameId }},
+		{ new: true}
+	)
+
+	return {
+		email: updateUser.email,
+		games: updateUser.games
+	}
+
+}
+
+
+
+const patchUserGameMultiple = async(userId, gameIds) => {
+
+	const user = await User.findOne({_id: userId}) 
+
+    if (!user) {
+        const error = new Error('DATA_NOT_FOUND');
+        error.code = 'DATA_NOT_FOUND';
+        throw error;
+    }
+
+	const updateUser = await User.findByIdAndUpdate(
+		userId,
+		{ $addToSet: { games: { $each: gameIds } }},
+		{ new: true}
+	)
+
+	return {
+		email: updateUser.email,
+		games: updateUser.games
+	}
+
+}
+
 
 export {
 	getUSers,
 	getUSer,
 	postUser,
 	putUser,
-	patchUserActive
+	patchUserActive,
+	patchUserGame,
+	patchUserGameMultiple
 }

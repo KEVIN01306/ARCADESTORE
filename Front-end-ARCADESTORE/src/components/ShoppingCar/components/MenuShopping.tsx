@@ -10,6 +10,7 @@ import type { GameType } from '../../../types/gameType';
 import MenuItemShopping from './MenuItem';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import { useShoppingCart } from '../../../store/useShoppingCart';
+import { useGoTo } from '../../../hooks/useGoTo';
 
 
 interface MenuShoppingProps {
@@ -23,6 +24,8 @@ interface MenuShoppingProps {
 const MenuShopping = ({ anchorEl, open, handleClose, games }: MenuShoppingProps ) => {
     const cartTotal = games.reduce((total, game) => total + game.price, 0);
     const clearShoppingCart = useShoppingCart((state) => state.clearShoppingCart)
+
+    const goTo = useGoTo()
 
     return ( 
         <>
@@ -70,7 +73,7 @@ const MenuShopping = ({ anchorEl, open, handleClose, games }: MenuShoppingProps 
                     </Typography>
                 </MenuItem>
                 
-                <MenuItem /*onClick={handleClose}*/ sx={{ justifyContent: 'center' }}>
+                <MenuItem /*onClick={handleClose}*/ sx={{ justifyContent: 'center' }} onClick={() => goTo('games/checkout')}>
                     <Typography color="secondary" fontWeight="bold">
                         Proceder al Pago
                     </Typography>
