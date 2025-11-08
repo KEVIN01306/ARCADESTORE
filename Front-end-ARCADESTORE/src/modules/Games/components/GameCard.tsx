@@ -4,6 +4,7 @@ import StatusChip from "../../../components/utils/StatusChip";
 import type { GameType } from "../../../types/gameType";
 import { useGoTo } from "../../../hooks/useGoTo";
 import { useAuthStore } from "../../../store/useAuthStore";
+import CategoryGame from "./categoryGame";
 
 interface CardGameView{
     game: GameType;
@@ -78,7 +79,8 @@ export default function GameCard( { game } : CardGameView) {
         </Typography>
       </Box>
 
-      <Box sx={{p: 1, display: "flex", justifyContent: "end"}}>
+      <Box sx={{p: 1, display: "flex", justifyContent: "space-between"}}>
+        <CategoryGame code={game.category} />
         <StatusChip type={user?.games.includes(String(game._id)) ? "Play" : type}/>
       </Box>
     </Card>

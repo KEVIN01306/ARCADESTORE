@@ -2,6 +2,7 @@ import { api } from '../axios/axios';
 import axios from 'axios';
 import type { apiResponse } from '../types/apiResponse';
 import type { GameType } from '../types/gameType';
+import type { RankingType } from '../types/rankingType';
 
 const API_URL = import.meta.env.VITE_DOMAIN;
 const API_GAMES = API_URL + "games"
@@ -199,11 +200,48 @@ const deleteGame = async (id: GameType['_id']) => {
 
 
 
+const patchGameRanking = async (gameId: GameType['_id'], ranking: RankingType) => {
+    try {
+
+        const response = await api.patch<apiResponse<GameType>>(API_GAMES + "/" + gameId+"/ranking",{ranking})
+
+        return response.data.data
+
+    } catch (error) {
+        console.log(error)
+        if (axios.isAxiosError(error)) {
+            const status = error.response?.status;
+
+            if (status === 404) {
+                throw new Error("NOT FOUND API OR NOT EXISTED IN THE SERVER")
+            }
+
+            if (status == 500) {
+                throw new Error("INTERNAL ERROR SERVER")
+            }
+            const serverMessage = error.response?.data?.message;
+
+            if (serverMessage) {
+                throw new Error(serverMessage)
+            }
+
+            throw new Error("CONNECTION ERROR")
+
+        }
+
+        throw new Error((error as Error).message)
+
+    }
+}
+
+
+
 
 export {
     getGames,
     getGame,
     postGame,
     putGame,
-    deleteGame
+    deleteGame,
+    patchGameRanking
 }

@@ -16,7 +16,6 @@ const loginHandler = async (req,res) => {
             return res.status(400).json("incorrect credentials")
         }
 
-
         const token = await login(value)
 
         res.status(200).json(responseSucces('approved credentials', token))

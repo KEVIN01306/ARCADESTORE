@@ -37,7 +37,7 @@ export default function BackgroundField({ control, errors }: Props) {
   return (
     <Box>
       <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: 500 }}>
-        Fondo del juego
+        Background of the game
       </Typography>
 
       <RadioGroup
@@ -60,7 +60,7 @@ export default function BackgroundField({ control, errors }: Props) {
           render={({ field }) => (
             <TextField
               {...field}
-              label="URL de la imagen"
+              label="URL of the image"
               fullWidth
               variant="standard"
               error={!!errors.background}
@@ -97,7 +97,7 @@ export default function BackgroundField({ control, errors }: Props) {
                 "&:hover": { backgroundColor: "#3b82f6" },
               }}
             >
-              Subir imagen
+              Up Load Image
               <VisuallyHiddenInput
                 type="file"
                 accept="image/*"

@@ -14,6 +14,7 @@ import { useGoTo } from "../../../hooks/useGoTo";
 import { errorToast, successToast } from "../../../utils/toast";
 import { useAuthStore } from "../../../store/useAuthStore";
 import { RiPlayLargeFill } from "react-icons/ri";
+import CategoryGame from "../components/categoryGame";
 
 const GameDetail = () => {
     const { id } = useParams<string>();
@@ -108,10 +109,14 @@ const GameDetail = () => {
                                 boxShadow: "0px 0px 5px rgb(0,0,0,0.1)",
                             }}
                         />
-                        <Stack spacing={5} sx={{ flex: 1, width: "100%" }}  >
+                        <Stack spacing={2} sx={{ flex: 1, width: "100%" }}  >
                             <Typography variant="h4" fontWeight={700} color='#596d80'>
                                 {game?.name}
                             </Typography>
+                            <Box>
+                                <CategoryGame code={game?.category}/>
+                            </Box>
+                            
                             <Typography variant="body1" sx={{ opacity: 0.8 }} color='#596d80'>
                                 {game?.context}
                             </Typography>

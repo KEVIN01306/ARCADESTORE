@@ -77,10 +77,35 @@ const deleteGame = async (id) => {
 }
 
 
+
+const patchGameRanking = async(gameId, rank) => {
+    const updateGame = await Game.findByIdAndUpdate(
+        gameId,
+        { $push: { ranking: rank }},
+        { new: true }
+    );
+
+    if (!updateGame) {
+        const error = new Error('DATA_NOT_FOUND');
+        error.code = 'DATA_NOT_FOUND';
+        throw error;
+    }
+
+	const updatedGameObject = updateGame.toObject();
+
+    return {
+        name: updatedGameObject.name,
+        ranking: updatedGameObject.ranking
+    };
+};
+
+
+
 export {
 	getGames,
 	getGame,
 	postGame,
 	putGame,
 	deleteGame,
+	patchGameRanking
 }

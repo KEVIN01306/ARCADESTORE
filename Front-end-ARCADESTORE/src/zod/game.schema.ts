@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { rankingSchema } from './ranking.schema'
 
 
 export const gameSchema = z.object({
@@ -21,5 +22,7 @@ export const gameSchema = z.object({
     context: z
         .string()
         .min(10, "El contexto debe tener almenos 10 caracteres")
-        .max(255,"El Contexto no puede tener mas de 255 caracteres")
+        .max(255,"El Contexto no puede tener mas de 255 caracteres"),
+    ranking: z.array(rankingSchema()).optional(),
+    category: z.string()
 })

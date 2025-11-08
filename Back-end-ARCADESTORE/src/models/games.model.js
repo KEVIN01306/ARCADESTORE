@@ -22,6 +22,14 @@ const gameSchema = mongoose.Schema(
         context: {
             type: String,
             require: true
+        },
+        ranking:{
+            type: Array,
+            require: false,
+        },
+        category: {
+            type: String,
+            require: true
         }
     }
 )

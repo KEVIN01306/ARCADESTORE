@@ -3,7 +3,7 @@ import CardForm from "./cards/CardForm";
 import React from "react";
 
 interface FormEstructureProps {
-  handleSubmit: () => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   sx?: SxProps<Theme>;
   pGrid?: number;
   center?: boolean

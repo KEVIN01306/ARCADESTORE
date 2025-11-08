@@ -75,7 +75,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }: HeaderProps) => {
                     alignItems: "center",
                 }}
             >
-                <ShoppingCard />
+                <ShoppingCard />    
 
                 <IconButton onClick={handleMenuOpen} sx={{ p: 0 }}>
                     {user ? (

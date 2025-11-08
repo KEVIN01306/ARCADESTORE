@@ -33,6 +33,7 @@ const GameCreate = () => {
         })
 
     const handlerSubmitGame = async (data: GameType) => {
+        console.log("esta es la data: "+data)
         try {
             const response = await postGame(data)
             successToast("Game create: " + response)

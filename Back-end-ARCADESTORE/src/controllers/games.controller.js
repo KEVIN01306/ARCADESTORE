@@ -1,6 +1,7 @@
-import { postGame, getGames, getGame, putGame, deleteGame } from "../services/games.service.js";
+import { postGame, getGames, getGame, putGame, deleteGame, patchGameRanking } from "../services/games.service.js";
 import { responseSuccesAll,responseSucces, responseError } from "../helpers/response.helper.js";
 import { schemaGame } from "../schemas/game.schema.js";
+import { schemaRanking } from "../schemas/ranking.schema.js";
 
 const getGamesHandler = async (req,res) =>{
     try {
@@ -125,11 +126,45 @@ const deleteGameHandler = async(req,res) => {
 
 
 
+const patchGameRankingHandler = async (req, res) => {
+    try {
+
+        const gameId = req.params.id; 
+        const { ranking } = req.body;
+
+        const { error, value } = schemaRanking.validate(ranking, { abortEarly: false }) 
+
+        if ( error && error.details ){ 
+                return res.status(400).json(responseError(error.details.map(e => e.message)))
+        }
+
+        console.log(ranking)
+
+        const result = await patchGameRanking(gameId, value); 
+        res.status(200).json(responseSucces("Add Ranking Success", result));
+
+    } catch (error) {
+        let errorCode = 500;
+        let errorMessage = 'INTERNAL_SERVER_ERROR';
+        switch (error.code) {
+            case 'DATA_NOT_FOUND':
+                errorCode = 404;
+                errorMessage = error.code;
+                break;
+        }
+
+        console.error(error);
+        return res.status(errorCode).json(responseError(errorMessage));
+    }
+}
+
+
 
 export {
     getGamesHandler,
     getGameHandler,
     postGameHandler,
     putGameHandler,
-    deleteGameHandler
+    deleteGameHandler,
+    patchGameRankingHandler
 }

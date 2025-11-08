@@ -6,16 +6,18 @@ import ModalSummary from "../components/ModalSummary";
 import Counters from "../components/Counters";
 import PauseButton from "../components/PauseButton";
 import Mods from "../components/Mods";
-import { usePlayerListStore } from '../store/usePlayerListStore';
+import { patchGameRanking } from "../../../../../services/games.services";
+import { useAuthStore } from "../../../../../store/useAuthStore";
+import { errorToast, successToast } from "../../../../../utils/toast";
 
 const GameBalloonPop = () => {
+    const user = useAuthStore(state => state.user)
     const [ballonList, setBallonList] = useState<BallonTypes[]>([]);
     const [score, setScore] = useState<number>(0);
     const [open, setOpen] = useState<boolean>(false);
     const [time, setTime] = useState<number>(30);
     const [modBallon, setModBaloon] = useState<string>("RAIN");
     const [pause, setPause] = useState<boolean>(true);
-    const saveRankList = usePlayerListStore((state) => state.saveRankList)
 
     useEffect(() => {
       if (!open && !pause){
@@ -87,10 +89,18 @@ const GameBalloonPop = () => {
         changeOpen()
     }
 
-    const Save = (newName: string, newScore: number) => {
-    saveRankList(newName,newScore)
-      returnGame()
-      changeOpen()
+    const Save = async (newName: string, newScore: number) => {
+
+      try{
+          const ranking = {userId: user._id,userName: newName, score: newScore}
+          const gameId = "6903f094a331c5799f4e4146"
+          await patchGameRanking(gameId,ranking) 
+          returnGame()
+          changeOpen()
+          successToast("Ranking save")
+      }catch (err: any){
+        errorToast(err?.message)
+      }
     }
 
     const changeMod = (newMod: string) => {

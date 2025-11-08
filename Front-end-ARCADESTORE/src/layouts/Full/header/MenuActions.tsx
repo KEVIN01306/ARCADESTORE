@@ -25,7 +25,6 @@ const MenuActions = ({open,anchorEl,handleMenuClose}:MenuActionsProps) => {
         goTo("/public/auth/login");
     };
     return (
-        <>
             <Menu
                 anchorEl={anchorEl}
                 open={open}
@@ -90,7 +89,6 @@ const MenuActions = ({open,anchorEl,handleMenuClose}:MenuActionsProps) => {
                     </>
                 )}
             </Menu>
-        </>
     )
 }
 
