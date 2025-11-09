@@ -59,7 +59,7 @@ const GamesList = () => {
         (game) => user.games.includes(game._id)
       );
     }
-    
+
     setFilteredGames(filtered);
   };
 
