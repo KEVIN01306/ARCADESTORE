@@ -18,30 +18,30 @@ const opcionsGames = [
 
 
 interface HeaderGamesProps {
-  onFilterChange: (filters: { 
-            category?: string,
-            type?: string,
-            games?: string
+    onFilterChange: (filters: {
+        category?: string,
+        type?: string,
+        games?: string
 
-   }) => void;
+    }) => void;
 }
 
 const HeaderGames = ({ onFilterChange }: HeaderGamesProps) => {
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [selectedType, setSelectedType] = useState("All");
     const [selectedGame, setSelectedGame] = useState("All");
-    const categories = (Object.keys(ESRB_RATINGS) as RatingKey[]).map( key => ESRB_RATINGS[key].code )
+    const categories = (Object.keys(ESRB_RATINGS) as RatingKey[]).map(key => ESRB_RATINGS[key].code)
     const user = useAuthStore.getState().user
     const goTo = useGoTo()
 
 
     useEffect(() => {
-    onFilterChange({
-      category: selectedCategory,
-      type: selectedType,
-      games: selectedGame
-    });
-  }, [selectedCategory, selectedType,selectedGame]);
+        onFilterChange({
+            category: selectedCategory,
+            type: selectedType,
+            games: selectedGame
+        });
+    }, [selectedCategory, selectedType, selectedGame]);
     return (
         <>
             <Grid flexGrow={1} container p={1} gap={2} justifyContent={{ sm: "center", md: "flex-end" }}>
@@ -50,7 +50,7 @@ const HeaderGames = ({ onFilterChange }: HeaderGamesProps) => {
                         disableClearable
                         size="small"
                         options={opcionsType}
-                        onChange={(_,newValue) => {
+                        onChange={(_, newValue) => {
                             setSelectedType(newValue)
                         }}
                         renderInput={(params) => <TextField {...params} label="Type" variant="standard"
@@ -59,24 +59,29 @@ const HeaderGames = ({ onFilterChange }: HeaderGamesProps) => {
                             }} />}
                     />
                 </Grid>
-                <Grid size={{ xs: 5, md: 2 }} flexGrow={1} alignItems={"center"} justifyContent={"center"}>
-                    <Autocomplete
-                        disableClearable
-                        size="small"
-                        options={opcionsGames}
-                        onChange={(_,newValue) => {
-                            setSelectedGame(newValue)
-                        }}
-                        renderInput={(params) => <TextField {...params} label="Games" variant="standard" />}
-                    />
-                </Grid>
+                {
+                    user ? (
+                        <Grid size={{ xs: 5, md: 2 }} flexGrow={1} alignItems={"center"} justifyContent={"center"}>
+                            <Autocomplete
+                                disableClearable
+                                size="small"
+                                options={opcionsGames}
+                                onChange={(_, newValue) => {
+                                    setSelectedGame(newValue)
+                                }}
+                                renderInput={(params) => <TextField {...params} label="Games" variant="standard" />}
+                            />
+                        </Grid>
+                    ) :
+                        ""
+                }
 
                 <Grid size={{ xs: 5, md: 2 }} flexGrow={1} alignItems={"center"} justifyContent={"center"}>
                     <Autocomplete
                         disableClearable
                         size="small"
-                        options={["All",...categories]}
-                        onChange={(_,newValue) => {
+                        options={["All", ...categories]}
+                        onChange={(_, newValue) => {
                             setSelectedCategory(newValue);
                         }}
                         renderInput={(params) => <TextField {...params} label="Category" variant="standard" />}
