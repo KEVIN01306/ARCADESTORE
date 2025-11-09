@@ -60,7 +60,7 @@ const MenuItemShopping = ({ game, handleClose }: MenuItemProps) => {
 
                     <Box sx={{ ml: 2 }}>
                         <Typography variant="subtitle1" color="success" fontWeight="bold">
-                            ${game.price.toFixed(2)}
+                            Q{game.price.toFixed(2)}
                         </Typography>
                     </Box>
                 </Box>

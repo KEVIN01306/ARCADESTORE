@@ -69,7 +69,7 @@ const MenuShopping = ({ anchorEl, open, handleClose, games }: MenuShoppingProps 
                         Total:
                     </Typography>
                     <Typography variant="h6" color="textPrimary">
-                        ${cartTotal.toFixed(2)}
+                        Q{cartTotal.toFixed(2)}
                     </Typography>
                 </MenuItem>
                 

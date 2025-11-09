@@ -2,10 +2,6 @@ import { Avatar, Card, CardContent, Divider, Grid, List, ListItem, ListItemIcon,
 import type { GameType } from "../../../types/gameType";
 import { useShoppingCart } from "../../../store/useShoppingCart";
 
-
-
-
-
 const PaymentSummary = () => {
 
     const shoppingCart = useShoppingCart( state => state.shoppingCardtList)
@@ -50,7 +46,7 @@ const PaymentSummary = () => {
                                                 }
                                             />
                                             <Typography variant="body1" fontWeight="medium">
-                                                ${item.price ? item.price.toFixed(2) : '0.00'}
+                                                Q{item.price ? item.price.toFixed(2) : '0.00'}
                                             </Typography>
                                         </ListItem>
                                     ))}
@@ -60,7 +56,7 @@ const PaymentSummary = () => {
                                             Total:
                                         </Typography>
                                         <Typography variant="h6" fontWeight="bold" color="primary">
-                                            ${calculateTotal().toFixed(2)}
+                                            Q{calculateTotal().toFixed(2)}
                                         </Typography>
                                     </ListItem>
                                 </List>

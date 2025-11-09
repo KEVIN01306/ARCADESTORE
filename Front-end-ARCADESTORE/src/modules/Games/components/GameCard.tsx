@@ -75,7 +75,7 @@ export default function GameCard( { game } : CardGameView) {
           {name}
         </Typography>
         <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          ${price}
+          Q{price}
         </Typography>
       </Box>
 

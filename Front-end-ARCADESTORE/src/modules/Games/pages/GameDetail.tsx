@@ -121,7 +121,7 @@ const GameDetail = () => {
                                 {game?.context}
                             </Typography>
                             <Typography variant="h5" fontWeight={600} color='#596d80'>
-                                ${game?.price}
+                                Q{game?.price}
                             </Typography>
                             <Box display={"flex"} justifyContent={"space-between"} >
                                 {
